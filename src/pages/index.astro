@@ -1,0 +1,2249 @@
+---
+import {
+  siFacebook,
+  siInstagram,
+  siX,
+  siTiktok,
+  siLine,
+} from 'simple-icons';
+
+const fanclubLinks = [
+  {
+    name: 'Facebook',
+    handle: 'Saonoi BNK48 Thailand Fanclub',
+    url: 'https://www.facebook.com/SaonoiBNK48THFC',
+    icon: siFacebook,
+    className: 'facebook',
+  },
+  {
+    name: 'Instagram',
+    handle: '@saonoi.bnk48thfc',
+    url: 'https://www.instagram.com/saonoi.bnk48thfc/',
+    icon: siInstagram,
+    className: 'instagram',
+  },
+  {
+    name: 'X',
+    handle: '@SaonoiBNK48THFC',
+    url: 'https://x.com/SaonoiBNK48THFC',
+    icon: siX,
+    className: 'x',
+  },
+  {
+    name: 'TikTok',
+    handle: '@saonoi.bnk48thfc',
+    url: 'https://www.tiktok.com/@saonoi.bnk48thfc',
+    icon: siTiktok,
+    className: 'tiktok',
+  },
+  {
+    name: 'LINE OpenChat',
+    handle: 'Saonoi BNK48 Thailand Fanclub',
+    url: 'https://line.me/ti/g2/tThqjevLTRgX5Tja8olMroWXo_EsBRQsIBhcMQ',
+    icon: siLine,
+    className: 'line',
+  },
+];
+
+const officialLinks = [
+  {
+    name: 'Facebook',
+    handle: 'Saonoi BNK48 Official',
+    url: 'https://www.facebook.com/saonoi.bnk48official',
+    icon: siFacebook,
+    className: 'facebook',
+  },
+  {
+    name: 'Instagram',
+    handle: '@saonoi.bnk48official',
+    url: 'https://www.instagram.com/saonoi.bnk48official/',
+    icon: siInstagram,
+    className: 'instagram',
+  },
+  {
+    name: 'TikTok',
+    handle: '@saonoi.bnk48official',
+    url: 'https://www.tiktok.com/@saonoi.bnk48official',
+    icon: siTiktok,
+    className: 'tiktok',
+  },
+];
+---
+
+<!doctype html>
+<html lang="th">
+
+<head>
+
+  <meta charset="UTF-8" />
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  />
+
+  <meta
+    name="description"
+    content="Official fan hub for Saonoi BNK48 and Saonoi BNK48 Thailand Fanclub."
+  />
+
+  <meta
+    name="referrer"
+    content="strict-origin-when-cross-origin"
+  />
+
+  <title>
+    Saonoi BNK48 | Official Fan Hub
+  </title>
+
+  <link
+    rel="icon"
+    href="/images/Saonoi-avatar-01.webp"
+  />
+
+  <link
+    rel="preconnect"
+    href="https://fonts.googleapis.com"
+  />
+
+  <link
+    rel="preconnect"
+    href="https://fonts.gstatic.com"
+    crossorigin
+  />
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;750;800&display=swap"
+    rel="stylesheet"
+  />
+
+</head>
+
+
+<body>
+
+  <!-- =====================================================
+       SITE HEADER
+       ===================================================== -->
+
+  <header class="site-header">
+
+    <a
+      href="/"
+      class="brand"
+      aria-label="Baby Tiger Cave"
+    >
+
+      <img
+        src="/images/logo_black-horizontal.png"
+        alt="Baby Tiger Cave"
+        class="brand-logo"
+      />
+
+    </a>
+
+
+    <div class="header-right">
+
+      <span class="header-label">
+        Saonoi BNK48 Thailand Fanclub
+      </span>
+
+
+      <nav
+        class="fanclub-social"
+        aria-label="Saonoi BNK48 Thailand Fanclub social media"
+      >
+
+        {
+          fanclubLinks.map((link) => (
+
+            <a
+              href={link.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label={link.name}
+              title={link.name}
+              class={`fanclub-social-link ${link.className}`}
+            >
+
+              <svg
+                viewBox="0 0 24 24"
+                aria-hidden="true"
+                focusable="false"
+              >
+
+                <path d={link.icon.path}></path>
+
+              </svg>
+
+            </a>
+
+          ))
+        }
+
+      </nav>
+
+    </div>
+
+  </header>
+
+
+
+  <!-- =====================================================
+       MAIN PAGE
+       ===================================================== -->
+
+  <main class="page">
+
+
+    <!-- ===================================================
+         HERO
+         =================================================== -->
+
+    <section class="hero-section">
+
+      <div class="hero-image-wrap">
+
+        <img
+          src="/images/Saonoi_hero-firstpage.webp"
+          alt="Saonoi BNK48"
+          class="hero-image"
+        />
+
+
+        <div class="avatar-wrap">
+
+          <img
+            src="/images/Saonoi-avatar-01.webp"
+            alt="Saonoi BNK48 profile"
+            class="avatar"
+          />
+
+        </div>
+
+      </div>
+
+
+      <!-- =================================================
+           IDENTITY
+           ================================================= -->
+
+      <div class="identity">
+
+        <h1>
+          Saonoi BNK48
+        </h1>
+
+        <p>
+          Pichsinee Itthiratanakomol
+        </p>
+
+      </div>
+
+    </section>
+
+
+
+    <!-- ===================================================
+         MORE DETAILS
+         Hidden / Expandable Profile
+         =================================================== -->
+
+    <section class="profile-details-section">
+
+      <details class="profile-details">
+
+        <summary>
+
+          <span class="details-thai">
+            ข้อมูลเพิ่มเติม
+          </span>
+
+          <span class="details-english">
+            More Details
+          </span>
+
+          <span
+            class="details-icon"
+            aria-hidden="true"
+          >
+            +
+          </span>
+
+        </summary>
+
+
+        <div class="details-content">
+
+
+          <!-- ===============================================
+               BASIC INFORMATION
+               =============================================== -->
+
+          <div class="bio-block">
+
+            <div class="bio-heading">
+              SAONOI
+            </div>
+
+
+            <div class="bio-name-thai">
+              พิชญ์สินี อิทธรัตนโกมล
+            </div>
+
+
+            <div class="bio-name-english">
+              Pichsinee Itthiratanakomol
+            </div>
+
+
+            <div class="bio-team">
+              BNK48 Team NV
+            </div>
+
+          </div>
+
+
+
+          <!-- ===============================================
+               PROFILE INFORMATION
+               =============================================== -->
+
+          <div class="bio-grid">
+
+            <div class="bio-item">
+
+              <span class="bio-label">
+                Date of birth
+              </span>
+
+              <strong>
+                9 November 2005
+              </strong>
+
+            </div>
+
+
+            <div class="bio-item">
+
+              <span class="bio-label">
+                Height
+              </span>
+
+              <strong>
+                161 cm
+              </strong>
+
+            </div>
+
+
+            <div class="bio-item">
+
+              <span class="bio-label">
+                Province
+              </span>
+
+              <strong>
+                กรุงเทพมหานคร
+              </strong>
+
+            </div>
+
+
+            <div class="bio-item">
+
+              <span class="bio-label">
+                Blood Group
+              </span>
+
+              <strong>
+                O
+              </strong>
+
+            </div>
+
+          </div>
+
+
+
+          <!-- ===============================================
+               LIKES / HOBBY
+               =============================================== -->
+
+          <div class="bio-text-list">
+
+            <div class="bio-text-item">
+
+              <span class="bio-label">
+                Like
+              </span>
+
+              <p>
+                โอวัลติน, แมว, ชาเขียว, ช็อคมิ้น, เมคอัพ
+              </p>
+
+            </div>
+
+
+            <div class="bio-text-item">
+
+              <span class="bio-label">
+                Hobby
+              </span>
+
+              <p>
+                ร้องเพลง, ดูหนังซีรีส์, เรียนภาษา, ทำขนม
+              </p>
+
+            </div>
+
+          </div>
+
+
+
+          <!-- ===============================================
+               DEBUT INTRODUCTION
+               =============================================== -->
+
+          <section class="debut-section">
+
+            <!-- YouTube Preview -->
+
+            <div
+              class="video-wrapper"
+              id="debut-video"
+            >
+
+              <button
+                class="youtube-preview"
+                type="button"
+                aria-label="Play Saonoi BNK48 Debut Introduction"
+                onclick="playDebutVideo()"
+              >
+
+                <img
+                  src="https://i.ytimg.com/vi/8OQKzAeZomE/maxresdefault.jpg"
+                  alt="Saonoi BNK48 Debut Introduction"
+                />
+
+
+                <span
+                  class="youtube-play"
+                  aria-hidden="true"
+                >
+
+                  <svg
+                    viewBox="0 0 68 48"
+                    aria-hidden="true"
+                  >
+
+                    <path
+                      d="M66.52 7.62a8.57 8.57 0 0 0-6.03-6.07C55.18 0 34 0 34 0S12.82 0 7.51 1.55a8.57 8.57 0 0 0-6.03 6.07C0 12.95 0 24 0 24s0 11.05 1.48 16.38a8.57 8.57 0 0 0 6.03 6.07C12.82 48 34 48 34 48s21.18 0 26.49-1.55a8.57 8.57 0 0 0 6.03-6.07C68 35.05 68 24 68 24s0-11.05-1.48-16.38Z"
+                      fill="#FF0033"
+                    />
+
+                    <path
+                      d="M45 24 27 14v20l18-10Z"
+                      fill="#fff"
+                    />
+
+                  </svg>
+
+                </span>
+
+              </button>
+
+            </div>
+
+          </section>
+
+        </div>
+
+      </details>
+
+    </section>
+
+
+
+    <!-- ===================================================
+         OFFICIAL CHANNELS
+         =================================================== -->
+
+    <section class="official-section">
+
+
+      <div class="section-heading">
+
+        <h2>
+          SAONOI BNK48 Official Channels
+        </h2>
+
+
+        <p class="thai-description">
+          สามารถติดตามสาวน้อย BNK48 ได้ในทุกช่องทางด้านล่างนี้
+        </p>
+
+
+        <p class="english-description">
+          Follow Saonoi BNK48 through her official social media channels.
+        </p>
+
+      </div>
+
+
+
+      <!-- Official Channel Cards -->
+
+      <div class="official-links">
+
+        {
+          officialLinks.map((link) => (
+
+            <a
+              href={link.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="channel-card"
+              aria-label={`${link.name} - ${link.handle}`}
+            >
+
+              <div class="channel-left">
+
+
+                <div
+                  class={`channel-icon ${link.className}`}
+                  aria-hidden="true"
+                >
+
+                  <svg
+                    viewBox="0 0 24 24"
+                    aria-hidden="true"
+                    focusable="false"
+                  >
+
+                    <path d={link.icon.path}></path>
+
+                  </svg>
+
+                </div>
+
+
+                <div class="channel-info">
+
+                  <strong>
+                    {link.name}
+                  </strong>
+
+                  <span>
+                    {link.handle}
+                  </span>
+
+                </div>
+
+              </div>
+
+
+              <span
+                class="channel-arrow"
+                aria-hidden="true"
+              >
+                →
+              </span>
+
+            </a>
+
+          ))
+        }
+
+      </div>
+
+    </section>
+
+
+
+    <!-- ===================================================
+         FOOTER
+         =================================================== -->
+
+    <footer class="footer">
+
+      <div class="footer-line"></div>
+
+
+      <img
+        src="/images/logo_black-square.png"
+        alt="Baby Tiger Cave"
+        class="footer-logo"
+      />
+
+
+      <p class="footer-title">
+        Saonoi BNK48 Thailand Fanclub
+      </p>
+
+
+      <span class="footer-subtitle">
+        Official Fan Hub
+      </span>
+
+    </footer>
+
+
+  </main>
+
+
+
+  <!-- =====================================================
+       YOUTUBE SCRIPT
+       ===================================================== -->
+
+  <script is:inline>
+
+    function playDebutVideo() {
+
+      const container =
+        document.getElementById('debut-video');
+
+      if (!container) return;
+
+
+      container.innerHTML = `
+        <iframe
+          src="https://www.youtube.com/embed/8OQKzAeZomE?autoplay=1&rel=0&playsinline=1"
+          title="Saonoi BNK48 Debut Introduction"
+          frameborder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          allowfullscreen
+          referrerpolicy="strict-origin-when-cross-origin">
+        </iframe>
+      `;
+
+    }
+
+  </script>
+
+
+
+  <!-- =====================================================
+       STYLES
+       ===================================================== -->
+
+  <style>
+
+    /* =====================================================
+       RESET / BASE
+       ===================================================== */
+
+    :global(*) {
+      box-sizing: border-box;
+    }
+
+
+    :global(html) {
+
+      margin: 0;
+      padding: 0;
+
+      background: #fafaf9;
+
+      scroll-behavior: smooth;
+
+    }
+
+
+    :global(body) {
+
+      margin: 0;
+      padding: 0;
+
+      min-width: 320px;
+
+      background: #fafaf9;
+
+      color: #171717;
+
+      font-family:
+        Inter,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        sans-serif;
+
+      -webkit-font-smoothing: antialiased;
+
+      text-rendering: optimizeLegibility;
+
+    }
+
+
+    :global(a) {
+      color: inherit;
+      text-decoration: none;
+    }
+
+
+
+    /* =====================================================
+       SITE HEADER
+       ===================================================== */
+
+    .site-header {
+
+      width: min(100% - 40px, 720px);
+
+      margin: 0 auto;
+
+      padding: 28px 0 24px;
+
+      display: flex;
+
+      align-items: center;
+
+      justify-content: space-between;
+
+      gap: 30px;
+
+    }
+
+
+    .brand {
+
+      display: inline-flex;
+
+      align-items: center;
+
+      text-decoration: none;
+
+      flex-shrink: 0;
+
+    }
+
+
+    .brand-logo {
+
+      width: 92px;
+
+      height: auto;
+
+      display: block;
+
+    }
+
+
+    .header-right {
+
+      display: flex;
+
+      align-items: center;
+
+      justify-content: flex-end;
+
+      gap: 18px;
+
+      min-width: 0;
+
+    }
+
+
+    .header-label {
+
+      font-size: 9px;
+
+      line-height: 1.3;
+
+      color: #8a8a8a;
+
+      white-space: nowrap;
+
+    }
+
+
+    .fanclub-social {
+
+      display: flex;
+
+      align-items: center;
+
+      gap: 13px;
+
+    }
+
+
+    .fanclub-social-link {
+
+      width: 19px;
+
+      height: 19px;
+
+      display: inline-flex;
+
+      align-items: center;
+
+      justify-content: center;
+
+      text-decoration: none;
+
+      transition:
+        transform 0.2s ease,
+        opacity 0.2s ease;
+
+    }
+
+
+    .fanclub-social-link:hover {
+
+      transform: translateY(-1px);
+
+      opacity: 0.75;
+
+    }
+
+
+    .fanclub-social-link svg {
+
+      width: 16px;
+
+      height: 16px;
+
+      display: block;
+
+      fill: currentColor;
+
+    }
+
+
+    /* Fanclub Brand Colors */
+
+    .fanclub-social-link.facebook {
+      color: #1877f2;
+    }
+
+    .fanclub-social-link.instagram {
+      color: #e1306c;
+    }
+
+    .fanclub-social-link.x {
+      color: #111111;
+    }
+
+    .fanclub-social-link.tiktok {
+      color: #111111;
+    }
+
+    .fanclub-social-link.line {
+      color: #06c755;
+    }
+
+
+
+    /* =====================================================
+       PAGE
+       ===================================================== */
+
+    .page {
+
+      width: min(100% - 40px, 720px);
+
+      margin: 0 auto;
+
+      padding-bottom: 42px;
+
+    }
+
+
+
+    /* =====================================================
+       HERO
+       ===================================================== */
+
+    .hero-section {
+
+      width: 100%;
+
+    }
+
+
+    .hero-image-wrap {
+
+      position: relative;
+
+      width: 100%;
+
+      overflow: visible;
+
+    }
+
+
+    .hero-image {
+
+      width: 100%;
+
+      height: auto;
+
+      aspect-ratio: 16 / 6.5;
+
+      object-fit: cover;
+
+      display: block;
+
+      border-radius: 18px;
+
+      box-shadow:
+        0 10px 30px rgba(0, 0, 0, 0.06);
+
+    }
+
+
+
+    /* =====================================================
+       AVATAR
+       ===================================================== */
+
+    .avatar-wrap {
+
+      position: relative;
+
+      width: 76px;
+
+      height: 76px;
+
+      margin: -38px auto 0;
+
+      padding: 4px;
+
+      border-radius: 50%;
+
+      background: rgba(255, 255, 255, 0.96);
+
+      box-shadow:
+        0 8px 25px rgba(0, 0, 0, 0.10);
+
+      z-index: 2;
+
+    }
+
+
+    .avatar {
+
+      display: block;
+
+      width: 100%;
+
+      height: 100%;
+
+      border-radius: 50%;
+
+      object-fit: cover;
+
+    }
+
+
+
+    /* =====================================================
+       IDENTITY
+       ===================================================== */
+
+    .identity {
+
+      text-align: center;
+
+      margin-top: 12px;
+
+    }
+
+
+    .identity h1 {
+
+      margin: 0;
+
+      font-size:
+        clamp(32px, 5vw, 40px);
+
+      line-height: 1.15;
+
+      font-weight: 750;
+
+      letter-spacing: -0.04em;
+
+      color: #171717;
+
+    }
+
+
+    .identity p {
+
+      margin: 8px 0 0;
+
+      font-size: 18px;
+
+      line-height: 1.4;
+
+      font-weight: 500;
+
+      color: #777777;
+
+    }
+
+
+
+    /* =====================================================
+       MORE DETAILS
+       ===================================================== */
+
+    .profile-details-section {
+
+      width: 100%;
+
+      margin-top: 27px;
+
+      text-align: center;
+
+    }
+
+
+    .profile-details {
+
+      width: 100%;
+
+      max-width: 620px;
+
+      margin: 0 auto;
+
+    }
+
+
+    .profile-details summary {
+
+      display: inline-flex;
+
+      align-items: center;
+
+      justify-content: center;
+
+      gap: 7px;
+
+      cursor: pointer;
+
+      list-style: none;
+
+      user-select: none;
+
+      color: #777777;
+
+      transition:
+        color 0.2s ease;
+
+    }
+
+
+    .profile-details summary::-webkit-details-marker {
+      display: none;
+    }
+
+
+    .profile-details summary:hover {
+      color: #222222;
+    }
+
+
+    .details-thai {
+
+      font-size: 12px;
+
+      font-weight: 600;
+
+    }
+
+
+    .details-english {
+
+      font-size: 10px;
+
+      color: #aaaaaa;
+
+      font-weight: 500;
+
+    }
+
+
+    .details-icon {
+
+      display: inline-flex;
+
+      align-items: center;
+
+      justify-content: center;
+
+      width: 17px;
+
+      height: 17px;
+
+      border: 1px solid #d4d4d2;
+
+      border-radius: 50%;
+
+      font-size: 12px;
+
+      line-height: 1;
+
+      color: #888888;
+
+      transition:
+        transform 0.25s ease,
+        background 0.2s ease;
+
+    }
+
+
+    .profile-details[open] .details-icon {
+
+      transform: rotate(45deg);
+
+      background: #f3f3f1;
+
+    }
+
+
+    .details-content {
+
+      margin-top: 18px;
+
+      padding: 24px;
+
+      text-align: left;
+
+      background: #ffffff;
+
+      border: 1px solid rgba(0, 0, 0, 0.045);
+
+      border-radius: 18px;
+
+      box-shadow:
+        0 8px 28px rgba(0, 0, 0, 0.045);
+
+    }
+
+
+
+    /* =====================================================
+       BIO
+       ===================================================== */
+
+    .bio-block {
+
+      text-align: center;
+
+      padding-bottom: 20px;
+
+      border-bottom: 1px solid #eeeeec;
+
+    }
+
+
+    .bio-heading {
+
+      font-size: 12px;
+
+      line-height: 1.3;
+
+      font-weight: 700;
+
+      letter-spacing: 0.18em;
+
+      color: #999999;
+
+    }
+
+
+    .bio-name-thai {
+
+      margin-top: 8px;
+
+      font-size: 21px;
+
+      line-height: 1.45;
+
+      font-weight: 650;
+
+      color: #333333;
+
+    }
+
+
+    .bio-name-english {
+
+      margin-top: 3px;
+
+      font-size: 16px;
+
+      line-height: 1.4;
+
+      color: #777777;
+
+    }
+
+
+    .bio-team {
+
+      display: inline-block;
+
+      margin-top: 10px;
+
+      padding: 5px 10px;
+
+      border-radius: 999px;
+
+      background: #f5f5f3;
+
+      color: #777777;
+
+      font-size: 11px;
+
+      font-weight: 600;
+
+    }
+
+
+
+    /* =====================================================
+       BIO GRID
+       ===================================================== */
+
+    .bio-grid {
+
+      display: grid;
+
+      grid-template-columns:
+        repeat(2, minmax(0, 1fr));
+
+      gap: 12px;
+
+      margin-top: 20px;
+
+    }
+
+
+    .bio-item {
+
+      padding: 13px 14px;
+
+      background: #fafaf9;
+
+      border-radius: 12px;
+
+    }
+
+
+    .bio-label {
+
+      display: block;
+
+      font-size: 9px;
+
+      line-height: 1.3;
+
+      text-transform: uppercase;
+
+      letter-spacing: 0.08em;
+
+      color: #aaaaaa;
+
+    }
+
+
+    .bio-item strong {
+
+      display: block;
+
+      margin-top: 4px;
+
+      font-size: 13px;
+
+      line-height: 1.4;
+
+      font-weight: 600;
+
+      color: #444444;
+
+    }
+
+
+
+    /* =====================================================
+       LIKES / HOBBY
+       ===================================================== */
+
+    .bio-text-list {
+
+      margin-top: 12px;
+
+      display: flex;
+
+      flex-direction: column;
+
+      gap: 10px;
+
+    }
+
+
+    .bio-text-item {
+
+      padding: 13px 14px;
+
+      background: #fafaf9;
+
+      border-radius: 12px;
+
+    }
+
+
+    .bio-text-item p {
+
+      margin: 5px 0 0;
+
+      font-size: 13px;
+
+      line-height: 1.6;
+
+      color: #555555;
+
+    }
+
+
+
+    /* =====================================================
+       DEBUT INTRODUCTION
+       ===================================================== */
+
+    .debut-section {
+
+      margin-top: 24px;
+
+      padding-top: 22px;
+
+      border-top: 1px solid #eeeeec;
+
+    }
+
+
+    .video-heading {
+
+      text-align: center;
+
+      margin-bottom: 14px;
+
+    }
+
+
+    .video-heading span {
+
+      display: block;
+
+      font-size: 9px;
+
+      line-height: 1.3;
+
+      font-weight: 700;
+
+      letter-spacing: 0.14em;
+
+      color: #aaaaaa;
+
+    }
+
+
+    .video-heading h3 {
+
+      margin: 5px 0 0;
+
+      font-size: 17px;
+
+      line-height: 1.35;
+
+      font-weight: 700;
+
+      color: #333333;
+
+    }
+
+
+    /* IMPORTANT:
+       Video container is separate from the section.
+       This prevents the heading from being inside
+       the 16:9 video area.
+    */
+
+    .video-wrapper {
+
+      position: relative;
+
+      width: 100%;
+
+      aspect-ratio: 16 / 9;
+
+      overflow: hidden;
+
+      border-radius: 14px;
+
+      background: #111111;
+
+    }
+
+
+    .youtube-preview {
+
+      position: relative;
+
+      display: block;
+
+      width: 100%;
+
+      height: 100%;
+
+      padding: 0;
+
+      border: 0;
+
+      cursor: pointer;
+
+      overflow: hidden;
+
+      background: #111111;
+
+    }
+
+
+    .youtube-preview img {
+
+      display: block;
+
+      width: 100%;
+
+      height: 100%;
+
+      object-fit: cover;
+
+      object-position: center;
+
+      transition:
+        transform 0.35s ease;
+
+    }
+
+
+    .youtube-preview:hover img {
+
+      transform: scale(1.02);
+
+    }
+
+
+    .youtube-play {
+
+      position: absolute;
+
+      top: 50%;
+
+      left: 50%;
+
+      width: 68px;
+
+      height: 48px;
+
+      transform:
+        translate(-50%, -50%);
+
+      transition:
+        transform 0.2s ease;
+
+    }
+
+
+    .youtube-preview:hover .youtube-play {
+
+      transform:
+        translate(-50%, -50%)
+        scale(1.08);
+
+    }
+
+
+    .youtube-play svg {
+
+      display: block;
+
+      width: 100%;
+
+      height: 100%;
+
+    }
+
+
+    .video-wrapper iframe {
+
+      position: absolute;
+
+      inset: 0;
+
+      display: block;
+
+      width: 100%;
+
+      height: 100%;
+
+      border: 0;
+
+    }
+
+
+
+    /* =====================================================
+       OFFICIAL CHANNELS
+       ===================================================== */
+
+    .official-section {
+
+      width: 100%;
+
+      margin-top: 34px;
+
+    }
+
+
+    .section-heading {
+
+      text-align: center;
+
+      margin-bottom: 20px;
+
+    }
+
+
+    .section-heading h2 {
+
+      margin: 0;
+
+      font-size: 22px;
+
+      line-height: 1.3;
+
+      font-weight: 750;
+
+      letter-spacing: -0.04em;
+
+      white-space: nowrap;
+
+    }
+
+
+    .thai-description {
+
+      margin: 9px 0 0;
+
+      font-size: 12px;
+
+      line-height: 1.5;
+
+      color: #999999;
+
+    }
+
+
+    .english-description {
+
+      margin: 3px 0 0;
+
+      font-size: 11px;
+
+      line-height: 1.5;
+
+      color: #aaaaaa;
+
+    }
+
+
+
+    /* =====================================================
+       OFFICIAL LINKS
+       ===================================================== */
+
+    .official-links {
+
+      display: flex;
+
+      flex-direction: column;
+
+      gap: 10px;
+
+    }
+
+
+    .channel-card {
+
+      display: flex;
+
+      align-items: center;
+
+      justify-content: space-between;
+
+      min-height: 70px;
+
+      padding: 11px 15px;
+
+      background: #ffffff;
+
+      border: 1px solid rgba(0, 0, 0, 0.035);
+
+      border-radius: 15px;
+
+      box-shadow:
+        0 8px 24px rgba(0, 0, 0, 0.055);
+
+      text-decoration: none;
+
+      color: inherit;
+
+      transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
+
+    }
+
+
+    .channel-card:hover {
+
+      transform: translateY(-2px);
+
+      box-shadow:
+        0 11px 28px rgba(0, 0, 0, 0.08);
+
+    }
+
+
+    .channel-left {
+
+      display: flex;
+
+      align-items: center;
+
+      min-width: 0;
+
+    }
+
+
+    .channel-icon {
+
+      display: flex;
+
+      align-items: center;
+
+      justify-content: center;
+
+      width: 44px;
+
+      height: 44px;
+
+      flex: 0 0 44px;
+
+      border-radius: 13px;
+
+      background: #f4f4f2;
+
+    }
+
+
+    .channel-icon svg {
+
+      width: 22px;
+
+      height: 22px;
+
+      display: block;
+
+      fill: currentColor;
+
+    }
+
+
+    .channel-icon.facebook {
+      color: #1877f2;
+    }
+
+
+    .channel-icon.instagram {
+      color: #e1306c;
+    }
+
+
+    .channel-icon.tiktok {
+      color: #111111;
+    }
+
+
+    .channel-info {
+
+      display: flex;
+
+      flex-direction: column;
+
+      gap: 3px;
+
+      margin-left: 12px;
+
+      min-width: 0;
+
+    }
+
+
+    .channel-info strong {
+
+      font-size: 13px;
+
+      line-height: 1.35;
+
+      font-weight: 700;
+
+      color: #222222;
+
+    }
+
+
+    .channel-info span {
+
+      font-size: 10px;
+
+      line-height: 1.35;
+
+      color: #888888;
+
+      white-space: nowrap;
+
+      overflow: hidden;
+
+      text-overflow: ellipsis;
+
+    }
+
+
+    .channel-arrow {
+
+      flex-shrink: 0;
+
+      margin-left: 16px;
+
+      font-size: 16px;
+
+      color: #888888;
+
+      transition:
+        transform 0.2s ease,
+        color 0.2s ease;
+
+    }
+
+
+    .channel-card:hover .channel-arrow {
+
+      color: #222222;
+
+      transform: translateX(2px);
+
+    }
+
+
+
+    /* =====================================================
+       FOOTER
+       ===================================================== */
+
+    .footer {
+
+      margin-top: 36px;
+
+      text-align: center;
+
+    }
+
+
+    .footer-line {
+
+      width: 100%;
+
+      height: 1px;
+
+      margin-bottom: 30px;
+
+      background: #e4e4e1;
+
+    }
+
+
+    .footer-logo {
+
+      display: block;
+
+      width: 34px;
+
+      height: auto;
+
+      margin: 0 auto 13px;
+
+    }
+
+
+    .footer-title {
+
+      margin: 0;
+
+      font-size: 9px;
+
+      line-height: 1.4;
+
+      color: #999999;
+
+    }
+
+
+    .footer-subtitle {
+
+      display: block;
+
+      margin-top: 3px;
+
+      font-size: 8px;
+
+      line-height: 1.4;
+
+      color: #bbbbbb;
+
+    }
+
+
+
+    /* =====================================================
+       MOBILE
+       ===================================================== */
+
+    @media (max-width: 600px) {
+
+      .site-header {
+
+        width: calc(100% - 32px);
+
+        padding: 20px 0 18px;
+
+        gap: 14px;
+
+      }
+
+
+      .brand-logo {
+
+        width: 82px;
+
+      }
+
+
+      .header-right {
+
+        gap: 10px;
+
+      }
+
+
+      .header-label {
+
+        display: none;
+
+      }
+
+
+      .fanclub-social {
+
+        gap: 9px;
+
+      }
+
+
+      .fanclub-social-link {
+
+        width: 21px;
+
+        height: 21px;
+
+      }
+
+
+      .fanclub-social-link svg {
+
+        width: 16px;
+
+        height: 16px;
+
+      }
+
+
+      .page {
+
+        width: calc(100% - 28px);
+
+      }
+
+
+      .hero-image {
+
+        aspect-ratio: 16 / 7.5;
+
+        border-radius: 16px;
+
+      }
+
+
+      .avatar-wrap {
+
+        width: 66px;
+
+        height: 66px;
+
+        margin-top: -33px;
+
+      }
+
+
+      .identity {
+
+        margin-top: 12px;
+
+      }
+
+
+      .identity h1 {
+
+        font-size: 31px;
+
+      }
+
+
+      .identity p {
+
+        margin-top: 7px;
+
+        font-size: 17px;
+
+      }
+
+
+      .profile-details-section {
+
+        margin-top: 24px;
+
+      }
+
+
+      .details-thai {
+
+        font-size: 11px;
+
+      }
+
+
+      .details-english {
+
+        font-size: 9px;
+
+      }
+
+
+      .details-content {
+
+        padding: 18px;
+
+        border-radius: 15px;
+
+      }
+
+
+      .bio-name-thai {
+
+        font-size: 18px;
+
+      }
+
+
+      .bio-name-english {
+
+        font-size: 14px;
+
+      }
+
+
+      .bio-grid {
+
+        gap: 9px;
+
+      }
+
+
+      .bio-item {
+
+        padding: 11px;
+
+      }
+
+
+      .bio-item strong {
+
+        font-size: 12px;
+
+      }
+
+
+      .debut-section {
+
+        margin-top: 20px;
+
+        padding-top: 18px;
+
+      }
+
+
+      .video-heading {
+
+        margin-bottom: 12px;
+
+      }
+
+
+      .video-heading h3 {
+
+        font-size: 16px;
+
+      }
+
+
+      .youtube-play {
+
+        width: 58px;
+
+        height: 41px;
+
+      }
+
+
+      .official-section {
+
+        margin-top: 34px;
+
+      }
+
+
+      .section-heading {
+
+        margin-bottom: 18px;
+
+      }
+
+
+      .section-heading h2 {
+
+        font-size: 20px;
+
+        white-space: nowrap;
+
+        letter-spacing: -0.04em;
+
+      }
+
+
+      .thai-description {
+
+        margin-top: 9px;
+
+        font-size: 11px;
+
+      }
+
+
+      .english-description {
+
+        margin-top: 3px;
+
+        font-size: 10px;
+
+      }
+
+
+      .official-links {
+
+        gap: 10px;
+
+      }
+
+
+      .channel-card {
+
+        min-height: 66px;
+
+        padding: 10px 13px;
+
+        border-radius: 14px;
+
+      }
+
+
+      .channel-icon {
+
+        width: 38px;
+
+        height: 38px;
+
+        flex-basis: 38px;
+
+        border-radius: 11px;
+
+      }
+
+
+      .channel-icon svg {
+
+        width: 19px;
+
+        height: 19px;
+
+      }
+
+
+      .channel-info {
+
+        margin-left: 11px;
+
+        gap: 2px;
+
+      }
+
+
+      .channel-info strong {
+
+        font-size: 12px;
+
+      }
+
+
+      .channel-info span {
+
+        font-size: 9px;
+
+      }
+
+
+      .channel-arrow {
+
+        font-size: 17px;
+
+      }
+
+
+      .footer {
+
+        margin-top: 38px;
+
+        padding-bottom: 25px;
+
+      }
+
+
+      .footer-line {
+
+        margin-bottom: 25px;
+
+      }
+
+
+      .footer-logo {
+
+        width: 30px;
+
+        height: 30px;
+
+      }
+
+    }
+
+
+
+    /* =====================================================
+       VERY SMALL MOBILE
+       ===================================================== */
+
+    @media (max-width: 380px) {
+
+      .site-header {
+
+        width: calc(100% - 24px);
+
+      }
+
+
+      .brand-logo {
+
+        width: 70px;
+
+      }
+
+
+      .fanclub-social {
+
+        gap: 8px;
+
+      }
+
+
+      .page {
+
+        width: calc(100% - 22px);
+
+      }
+
+
+      .section-heading h2 {
+
+        font-size: 18px;
+
+      }
+
+
+      .identity h1 {
+
+        font-size: 29px;
+
+      }
+
+
+      .identity p {
+
+        font-size: 16px;
+
+      }
+
+
+      .details-content {
+
+        padding: 15px;
+
+      }
+
+
+      .bio-grid {
+
+        grid-template-columns: 1fr;
+
+      }
+
+    }
+
+  </style>
+
+</body>
+
+</html>
