@@ -1,0 +1,221 @@
+---
+import {
+  siFacebook,
+  siInstagram,
+  siX,
+  siTiktok,
+  siLine,
+} from 'simple-icons';
+
+const fanclubLinks = [
+  {
+    name: 'Facebook',
+    handle: 'Saonoi BNK48 Thailand Fanclub',
+    url: 'https://www.facebook.com/SaonoiBNK48THFC',
+    icon: siFacebook,
+    className: 'facebook',
+  },
+  {
+    name: 'Instagram',
+    handle: '@saonoi.bnk48thfc',
+    url: 'https://www.instagram.com/saonoi.bnk48thfc/',
+    icon: siInstagram,
+    className: 'instagram',
+  },
+  {
+    name: 'X',
+    handle: '@SaonoiBNK48THFC',
+    url: 'https://x.com/SaonoiBNK48THFC',
+    icon: siX,
+    className: 'x',
+  },
+  {
+    name: 'TikTok',
+    handle: '@saonoi.bnk48thfc',
+    url: 'https://www.tiktok.com/@saonoi.bnk48thfc',
+    icon: siTiktok,
+    className: 'tiktok',
+  },
+  {
+    name: 'LINE OpenChat',
+    handle: 'Saonoi BNK48 Thailand Fanclub',
+    url: 'https://line.me/ti/g2/tThqjevLTRgX5Tja8olMroWXo_EsBRQsIBhcMQ',
+    icon: siLine,
+    className: 'line',
+  },
+];
+---
+
+<header class="site-header">
+  <a
+    href="/"
+    class="brand"
+    aria-label="Saonoi BNK48"
+  >
+    <img
+      src="/images/logo_black-horizontal.png"
+      alt="Saonoi BNK48"
+      class="brand-logo"
+    />
+  </a>
+
+  <div class="header-right">
+    <span class="header-label">
+      Saonoi BNK48 Thailand Fanclub
+    </span>
+
+    <nav
+      class="fanclub-social"
+      aria-label="Saonoi BNK48 Thailand Fanclub social media"
+    >
+      {
+        fanclubLinks.map((link) => (
+          <a
+            href={link.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label={link.name}
+            title={link.name}
+            class={`fanclub-social-link ${link.className}`}
+          >
+            <svg
+              viewBox="0 0 24 24"
+              aria-hidden="true"
+              focusable="false"
+            >
+              <path d={link.icon.path}></path>
+            </svg>
+          </a>
+        ))
+      }
+    </nav>
+  </div>
+</header>
+
+<style>
+  .site-header {
+    width: min(100% - 40px, 720px);
+    margin: 0 auto;
+    padding: 22px 0 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+  }
+
+  .brand {
+    display: inline-flex;
+    align-items: center;
+    text-decoration: none;
+    flex-shrink: 0;
+  }
+
+  .brand-logo {
+    display: block;
+    width: 94px;
+    height: auto;
+  }
+
+  .header-right {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 16px;
+    min-width: 0;
+  }
+
+  .header-label {
+    font-size: 10px;
+    line-height: 1.4;
+    font-weight: 500;
+    color: #999999;
+    white-space: nowrap;
+  }
+
+  .fanclub-social {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 10px;
+  }
+
+  .fanclub-social-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 22px;
+    height: 22px;
+    color: #888888;
+    text-decoration: none;
+    transition:
+      transform 0.2s ease,
+      color 0.2s ease,
+      opacity 0.2s ease;
+  }
+
+  .fanclub-social-link svg {
+    display: block;
+    width: 17px;
+    height: 17px;
+    fill: currentColor;
+  }
+
+  .fanclub-social-link:hover {
+    transform: translateY(-2px);
+    color: #171717;
+  }
+
+  .fanclub-social-link.facebook {
+    color: #1877f2;
+  }
+
+  .fanclub-social-link.instagram {
+    color: #e4405f;
+  }
+
+  .fanclub-social-link.x {
+    color: #111111;
+  }
+
+  .fanclub-social-link.tiktok {
+    color: #111111;
+  }
+
+  .fanclub-social-link.line {
+    color: #06c755;
+  }
+
+  @media (max-width: 600px) {
+    .site-header {
+      width: calc(100% - 32px);
+      padding: 20px 0 18px;
+      gap: 14px;
+    }
+
+    .brand-logo {
+      width: 82px;
+    }
+
+    .header-right {
+      gap: 10px;
+    }
+
+    .header-label {
+      display: none;
+    }
+
+    .fanclub-social {
+      gap: 9px;
+    }
+
+    .fanclub-social-link {
+      width: 21px;
+      height: 21px;
+    }
+
+    .fanclub-social-link svg {
+      width: 16px;
+      height: 16px;
+    }
+  }
+</style>

@@ -1,0 +1,177 @@
+---
+import Header from '../components/header.astro';
+import Footer from '../components/footer.astro';
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const {
+  title = 'Saonoi BNK48 | Official Fan Hub',
+  description = 'Official fan hub for Saonoi BNK48 and Saonoi BNK48 Thailand Fanclub.',
+} = Astro.props;
+---
+
+<!doctype html>
+
+<html lang="th">
+
+<head>
+
+  <meta charset="UTF-8" />
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  />
+
+  <meta
+    name="description"
+    content={description}
+  />
+
+  <meta
+    name="referrer"
+    content="strict-origin-when-cross-origin"
+  />
+
+  <title>
+    {title}
+  </title>
+
+  <link
+    rel="icon"
+    href="/images/Saonoi-avatar-01.webp"
+  />
+
+  <link
+    rel="preconnect"
+    href="https://fonts.googleapis.com"
+  />
+
+  <link
+    rel="preconnect"
+    href="https://fonts.gstatic.com"
+    crossorigin
+  />
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;750;800&display=swap"
+    rel="stylesheet"
+  />
+
+</head>
+
+<body>
+
+  <Header />
+
+  <main class="page">
+
+    <slot />
+
+    <Footer />
+
+  </main>
+
+</body>
+
+</html>
+
+<style is:global>
+
+  /* =====================================================
+     RESET / BASE
+     ===================================================== */
+
+  * {
+    box-sizing: border-box;
+  }
+
+  html {
+
+    margin: 0;
+    padding: 0;
+
+    background: #fafaf9;
+
+    scroll-behavior: smooth;
+
+  }
+
+  body {
+
+    margin: 0;
+    padding: 0;
+
+    min-width: 320px;
+
+    background: #fafaf9;
+
+    color: #171717;
+
+    font-family:
+      Inter,
+      -apple-system,
+      BlinkMacSystemFont,
+      "Segoe UI",
+      sans-serif;
+
+    -webkit-font-smoothing: antialiased;
+
+    text-rendering: optimizeLegibility;
+
+  }
+
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+
+  /* =====================================================
+     PAGE
+     ===================================================== */
+
+  .page {
+
+    width: min(100% - 40px, 720px);
+
+    margin: 0 auto;
+
+    padding-bottom: 42px;
+
+  }
+
+
+  /* =====================================================
+     MOBILE
+     ===================================================== */
+
+  @media (max-width: 600px) {
+
+    .page {
+
+      width: calc(100% - 28px);
+
+    }
+
+  }
+
+
+  /* =====================================================
+     VERY SMALL MOBILE
+     ===================================================== */
+
+  @media (max-width: 380px) {
+
+    .page {
+
+      width: calc(100% - 22px);
+
+    }
+
+  }
+
+</style>
