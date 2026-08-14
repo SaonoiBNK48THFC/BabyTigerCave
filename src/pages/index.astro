@@ -1,6 +1,6 @@
 ---
 import MainLayout from '../layouts/mainlayout.astro';
-
+import DonateModal from '../components/donate-modal.astro';
 import {
   siFacebook,
   siInstagram,
@@ -95,11 +95,11 @@ const officialLinks = [
       <summary>
 
         <span class="ge-details-thai">
-          แตะเพื่อดูข้อมูลการสมัคร
+          แตะเพื่อดูข้อมูล
         </span>
 
         <span class="ge-details-english">
-          BNK48 &amp; CGM48 Senbatsu General Election 2026
+          General Election 2026 ของสาวน้อย
         </span>
 
         <span
@@ -114,7 +114,7 @@ const officialLinks = [
 
       <div class="ge-content">
 
-
+u 
         <!-- =============================================
              GE APPLICATION PHOTO
              ============================================== -->
@@ -305,6 +305,8 @@ const officialLinks = [
     </details>
 
   </section>
+
+<DonateModal />
 
   <!-- ===================================================
        MORE DETAILS
