@@ -22,6 +22,8 @@
   },
   "homepage": "https://github.com/SaonoiBNK48THFC/BabyTigerCave#readme",
   "dependencies": {
+    "@fontsource/noto-sans-thai": "^5.3.0",
+    "@fontsource/plus-jakarta-sans": "^5.3.0",
     "@vercel/analytics": "^2.0.1",
     "astro": "^7.2.0",
     "simple-icons": "^16.28.0"

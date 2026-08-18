@@ -1,4 +1,9 @@
 ---
+import '@fontsource/noto-sans-thai/400.css';
+import '@fontsource/noto-sans-thai/500.css';
+import '@fontsource/noto-sans-thai/600.css';
+import '@fontsource/noto-sans-thai/700.css';
+
 import MainLayout from '../layouts/mainlayout.astro';
 import DonateModal from '../components/donate-modal.astro';
 import {
@@ -24,8 +29,8 @@ const officialLinks = [
   },
   {
     name: 'TikTok',
-    handle: '@saonoi.bnk48official',
-    url: 'https://www.tiktok.com/@saonoi.bnk48official',
+    handle: '@saonoi.bnk48',
+    url: 'https://www.tiktok.com/@saonoi.bnk48',
     icon: siTiktok,
     className: 'tiktok',
   },
@@ -113,8 +118,7 @@ const officialLinks = [
 
 
       <div class="ge-content">
-
-u 
+ 
         <!-- =============================================
              GE APPLICATION PHOTO
              ============================================== -->
@@ -648,6 +652,17 @@ u
 </script>
 
 <style>
+
+:global(body) {
+  font-family: "Noto Sans Thai", sans-serif;
+}
+
+  :global(button),
+  :global(input),
+  :global(textarea),
+  :global(select) {
+    font-family: inherit;
+  }
 
   /* =====================================================
      GENERAL

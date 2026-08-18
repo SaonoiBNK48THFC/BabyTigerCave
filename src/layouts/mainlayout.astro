@@ -3,6 +3,11 @@ import Header from '../components/header.astro';
 import Footer from '../components/footer.astro';
 import Analytics from '@vercel/analytics/astro';
 
+import '@fontsource/noto-sans-thai/400.css';
+import '@fontsource/noto-sans-thai/500.css';
+import '@fontsource/noto-sans-thai/600.css';
+import '@fontsource/noto-sans-thai/700.css';
+
 interface Props {
   title?: string;
   description?: string;
@@ -44,22 +49,6 @@ const {
   <link
     rel="icon"
     href="/images/Saonoi-avatar-01.webp"
-  />
-
-  <link
-    rel="preconnect"
-    href="https://fonts.googleapis.com"
-  />
-
-  <link
-    rel="preconnect"
-    href="https://fonts.gstatic.com"
-    crossorigin
-  />
-
-  <link
-    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;750;800&display=swap"
-    rel="stylesheet"
   />
 
 </head>
@@ -115,11 +104,11 @@ const {
     color: #171717;
 
     font-family:
-      Inter,
-      -apple-system,
-      BlinkMacSystemFont,
-      "Segoe UI",
-      sans-serif;
+  "Noto Sans Thai",
+  -apple-system,
+  BlinkMacSystemFont,
+  "Segoe UI",
+  sans-serif;
 
     -webkit-font-smoothing: antialiased;
 
