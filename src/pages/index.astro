@@ -34,6 +34,13 @@ const officialLinks = [
     icon: siTiktok,
     className: 'tiktok',
   },
+  {
+    name: 'iAM48',
+    handle: 'Saonoi BNK48',
+    url: 'https://app.bnk48.com/member-profile/133',
+    icon: '/images/iAM48-icon.png',
+    className: 'iam48',
+  },
 ];
 ---
 
@@ -202,16 +209,16 @@ const officialLinks = [
           <ol>
 
             <li>
-              <strong>Kimi wa Motto Dekiru</strong>
+              <strong><a href="https://www.youtube.com/watch?v=sgTrpfINzIw" target="_blank" rel="noopener noreferrer">Kimi wa Motto Dekiru</a></strong>
               <span>HKT48</span>
             </li>
                         <li>
-              <strong>Hayaokuri Calendar</strong>
+              <strong><a href="https://www.youtube.com/watch?v=4gMAun5RyZA" target="_blank" rel="noopener noreferrer">Hayaokuri Calendar</a></strong>
               <span>HKT48</span>
             </li>
 
             <li>
-              <strong>Hitsuzensei</strong>
+              <strong><a href="https://www.youtube.com/watch?v=AZWWo3wVyjQ" target="_blank" rel="noopener noreferrer">Hitsuzensei</a></strong>
               <span>IZ4648</span>
             </li>
 
@@ -575,15 +582,24 @@ const officialLinks = [
                 aria-hidden="true"
               >
 
-                <svg
-                  viewBox="0 0 24 24"
-                  aria-hidden="true"
-                  focusable="false"
-                >
+                {typeof link.icon === 'string' ? (
+                  <img
+                    src={link.icon}
+                    alt=""
+                    width="22"
+                    height="22"
+                  />
+                ) : (
+                  <svg
+                    viewBox="0 0 24 24"
+                    aria-hidden="true"
+                    focusable="false"
+                  >
 
-                  <path d={link.icon.path}></path>
+                    <path d={link.icon.path}></path>
 
-                </svg>
+                  </svg>
+                )}
 
               </div>
 
@@ -1952,7 +1968,8 @@ const officialLinks = [
   }
 
 
-  .channel-icon svg {
+  .channel-icon svg,
+  .channel-icon img {
 
     width: 22px;
 
@@ -1961,6 +1978,13 @@ const officialLinks = [
     display: block;
 
     fill: currentColor;
+
+  }
+
+
+  .channel-icon img {
+
+    object-fit: contain;
 
   }
 
@@ -2336,7 +2360,8 @@ const officialLinks = [
     }
 
 
-    .channel-icon svg {
+    .channel-icon svg,
+    .channel-icon img {
 
       width: 19px;
 
