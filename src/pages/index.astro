@@ -101,6 +101,19 @@ const officialLinks = [
       class="ge-poster"
     />
 
+    <div class="ge-video">
+      <iframe
+        src="https://www.youtube-nocookie.com/embed/QgBLEkjNyfs?playsinline=1"
+        title="Saonoi BNK48 General Election 2026 Video"
+        width="560"
+        height="315"
+        loading="lazy"
+        allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+        allowfullscreen
+        referrerpolicy="strict-origin-when-cross-origin"
+      ></iframe>
+    </div>
+
       <!-- =================================================
        GE 2026
        Hidden / Expandable General Election Information
@@ -724,10 +737,6 @@ const officialLinks = [
 
     height: auto;
 
-    aspect-ratio: 16 / 6.5;
-
-    object-fit: cover;
-
     display: block;
 
     border-radius: 18px;
@@ -833,7 +842,8 @@ const officialLinks = [
      GE 2026
      ===================================================== */
 
-  .ge-poster {
+  .ge-poster,
+  .ge-video {
 
     display: block;
 
@@ -854,6 +864,38 @@ const officialLinks = [
     border-radius: 16px;
 
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+
+  }
+
+
+  .ge-video {
+
+    width: 100%;
+
+    max-width: 100%;
+
+    margin-inline: auto;
+
+  }
+
+
+  .ge-video iframe {
+
+    display: block;
+
+    width: 100%;
+
+    max-width: 100%;
+
+    margin-inline: auto;
+
+    height: auto;
+
+    aspect-ratio: 16 / 9;
+
+    border: 0;
+
+    border-radius: 10px;
 
   }
 
@@ -2120,8 +2162,6 @@ const officialLinks = [
   @media (max-width: 600px) {
 
     .hero-image {
-
-      aspect-ratio: 16 / 7.5;
 
       border-radius: 16px;
 
