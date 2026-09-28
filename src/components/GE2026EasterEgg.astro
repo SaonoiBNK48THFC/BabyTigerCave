@@ -1,0 +1,149 @@
+---
+import { ge2026EasterEggs } from '../data/ge2026-easter-eggs';
+---
+
+<ge2026-easter-egg>
+  <div class="hint-dots" role="group" aria-label="คำใบ้ที่ซ่อนอยู่ในโปสเตอร์ GE2026">
+    {ge2026EasterEggs.map((hint, index) => (
+      <button
+        type="button"
+        class="hint-dot"
+        aria-label={`เปิดคำใบ้ ${index + 1} จาก ${ge2026EasterEggs.length}: ${hint.title}`}
+        aria-haspopup="dialog"
+        aria-controls="ge2026-hints"
+        data-hint-index={index}
+      ><span aria-hidden="true">•</span></button>
+    ))}
+  </div>
+
+  <dialog id="ge2026-hints" aria-labelledby="ge2026-hints-title" aria-describedby="ge2026-hints-instructions">
+    <div class="sheet">
+      <header class="sheet-header">
+        <div>
+          <h2 id="ge2026-hints-title">เบื้องหลังโปสเตอร์ GE2026</h2>
+          <p id="ge2026-hints-instructions">เลื่อนลงเพื่อดูคำใบ้ทั้ง 7 รายการ</p>
+        </div>
+        <form method="dialog">
+          <button class="close-button" aria-label="ปิดรายละเอียดโปสเตอร์" autofocus>×</button>
+        </form>
+      </header>
+      <div class="hint-scroll" tabindex="0" role="region" aria-label="รายละเอียดคำใบ้ทั้ง 7 รายการ">
+        <ol>
+          {ge2026EasterEggs.map((hint, index) => (
+            <li>
+              <article tabindex="-1" aria-labelledby={`ge2026-hint-${index}`}>
+                <img src={hint.image} alt={hint.alt} loading="lazy" decoding="async" />
+                <div class="hint-copy">
+                  <span class="hint-count">{index + 1} / {ge2026EasterEggs.length}</span>
+                  <h3 id={`ge2026-hint-${index}`}>{hint.title}</h3>
+                  <p>{hint.description}</p>
+                </div>
+              </article>
+            </li>
+          ))}
+        </ol>
+        <footer class="hint-source">
+          <a
+            href="https://www.instagram.com/p/Dd0eHAPknZZ"
+            target="_blank"
+            rel="noopener noreferrer"
+          >View the original post on Instagram ↗</a>
+        </footer>
+      </div>
+    </div>
+  </dialog>
+</ge2026-easter-egg>
+
+<script>
+  class GE2026EasterEgg extends HTMLElement {
+    connectedCallback() {
+      if (this.dataset.initialized) return;
+      this.dataset.initialized = 'true';
+      const dialog = this.querySelector('dialog')!;
+      const scroller = this.querySelector<HTMLElement>('.hint-scroll')!;
+      const articles = this.querySelectorAll<HTMLElement>('article');
+      let opener: HTMLButtonElement | null = null;
+
+      this.querySelectorAll<HTMLButtonElement>('[data-hint-index]').forEach((button) => {
+        button.addEventListener('click', () => {
+          opener = button;
+          dialog.showModal();
+          const article = articles[Number(button.dataset.hintIndex)];
+          scroller.scrollTop = article.offsetTop;
+          article.focus({ preventScroll: true });
+        });
+      });
+
+      // Native dialog handles Escape and keeps keyboard focus inside the modal.
+      dialog.addEventListener('close', () => opener?.focus({ preventScroll: true }));
+      dialog.addEventListener('click', (event) => {
+        if (event.target !== dialog) return;
+        const bounds = dialog.getBoundingClientRect();
+        if (event.clientX < bounds.left || event.clientX > bounds.right ||
+            event.clientY < bounds.top || event.clientY > bounds.bottom) dialog.close();
+      });
+    }
+  }
+  if (!customElements.get('ge2026-easter-egg')) {
+    customElements.define('ge2026-easter-egg', GE2026EasterEgg);
+  }
+</script>
+
+<style>
+  ge2026-easter-egg { display: block; }
+  .hint-dots { display: flex; justify-content: center; margin-top: 4px; }
+  button { font: inherit; cursor: pointer; }
+  .hint-dot {
+    width: 40px; min-height: 44px; padding: 0; border: 0;
+    background: transparent; color: #b3b3ad; font-size: 18px;
+    border-radius: 50%;
+  }
+  .hint-dot:hover { color: #55554f; }
+  button:focus-visible, article:focus-visible, .hint-scroll:focus-visible {
+    outline: 2px solid #766126; outline-offset: -3px;
+  }
+  dialog {
+    position: fixed; inset: auto 0 0; margin: 0 auto; padding: 0;
+    width: 100%; max-width: 100%; max-height: 90vh; max-height: 90dvh;
+    border: 0; border-radius: 22px 22px 0 0;
+    background: #fafaf9; color: #292925; overflow: hidden;
+    box-shadow: 0 16px 60px rgb(0 0 0 / 20%);
+  }
+  dialog::backdrop { background: rgb(0 0 0 / 55%); }
+  .sheet { display: flex; flex-direction: column; max-height: 90vh; max-height: 90dvh; }
+  .sheet-header {
+    display: flex; align-items: flex-start; justify-content: space-between;
+    gap: 12px; padding: 20px 16px 14px; border-bottom: 1px solid #e5e5df;
+  }
+  h2 { margin: 0; font-size: 18px; }
+  .sheet-header p { margin: 4px 0 0; color: #66665e; font-size: 13px; }
+  .close-button {
+    width: 44px; height: 44px; border: 1px solid #d8d8cf;
+    border-radius: 50%; background: #fff; color: #333; font-size: 26px;
+  }
+  .hint-scroll {
+    position: relative; min-height: 0; overflow-y: auto; overscroll-behavior: contain;
+    padding: 16px 16px max(24px, env(safe-area-inset-bottom));
+  }
+  ol { list-style: none; margin: 0; padding: 0; display: grid; gap: 24px; }
+  article { background: #fff; border: 1px solid #e5e5df; border-radius: 14px; overflow: hidden; }
+  img { display: block; width: 100%; height: auto; aspect-ratio: 1; object-fit: contain; background: #f1f1ec; }
+  .hint-copy { padding: 16px; }
+  .hint-count { font-size: 12px; color: #706b5b; }
+  h3 { margin: 4px 0 8px; font-size: 20px; overflow-wrap: anywhere; }
+  .hint-copy p { margin: 0; font-size: 14px; line-height: 1.8; }
+  .hint-source { margin-top: 24px; text-align: center; }
+  .hint-source a {
+    display: inline-flex; align-items: center; min-height: 44px;
+    padding: 8px 4px; color: #706b5b; font-size: 12px;
+    line-height: 1.6; text-underline-offset: 4px; border-radius: 4px;
+  }
+  .hint-source a:hover { color: #292925; text-decoration: underline; }
+  .hint-source a:focus-visible { outline: 2px solid #766126; outline-offset: 2px; }
+  :global(html:has(#ge2026-hints[open])) { overflow: hidden; }
+  @media (min-width: 640px) {
+    dialog { inset: 0; margin: auto; width: min(640px, calc(100% - 48px)); border-radius: 22px; }
+    .sheet-header { padding: 24px; }
+    .hint-scroll { padding: 24px; }
+  }
+</style>
