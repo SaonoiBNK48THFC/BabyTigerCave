@@ -1,11 +1,10 @@
-const AVATAR_DIRECTORY = '/images/supporters/';
 const DRIVE_THUMBNAIL = 'https://drive.google.com/thumbnail';
 const DRIVE_FILE_ID = /^[A-Za-z0-9_-]+$/;
 const driveAvatarUrl = (id: string, resourceKey?: string) =>
   `${DRIVE_THUMBNAIL}?id=${encodeURIComponent(id)}&sz=w400${resourceKey ? `&resourcekey=${encodeURIComponent(resourceKey)}` : ''}`;
 
-// Prefer Drive File IDs; retain local filenames during migration. Accept our
-// generated URLs too because parser output passes through both avatar renderers.
+// Use Drive File IDs or share links. Accept our generated URLs too because
+// parser output passes through both avatar renderers. Retired filenames use initials.
 export function normalizeAvatarUrl(value?: string): string | undefined {
   const trimmed = value?.trim();
   if (!trimmed) return undefined;
@@ -22,12 +21,7 @@ export function normalizeAvatarUrl(value?: string): string | undefined {
       if (resourceKey && !DRIVE_FILE_ID.test(resourceKey)) return undefined;
       return driveAvatarUrl(id, resourceKey);
     }
-    const filename = trimmed.startsWith(AVATAR_DIRECTORY)
-      ? decodeURIComponent(trimmed.slice(AVATAR_DIRECTORY.length))
-      : trimmed;
-    if (/[\/\\\u0000-\u001f\u007f]/.test(filename)
-      || !/\.(avif|gif|jpe?g|png|svg|webp)$/i.test(filename)) return undefined;
-    return `${AVATAR_DIRECTORY}${encodeURIComponent(filename)}`;
+    return undefined;
   } catch {
     return undefined;
   }

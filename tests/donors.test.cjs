@@ -30,12 +30,12 @@ test('does not silently discard incomplete rows with important data', () => {
 });
 
 test('preserves named zero donors, names, avatars, amounts and tied sheet ranks', () => {
-  const donors = parseDonors(`${header}\n"ไทย 🐯, A",0.00,0,49,a.webp\nB,25.50,1,3,\nC,25.50,1,3,\n,0.00,0,49,`);
+  const donors = parseDonors(`${header}\n"ไทย 🐯, A",0.00,0,49,12jyw44v5-ni2zqa4zpf1hHd2vNhXdce3\nB,25.50,1,3,\nC,25.50,1,3,\n,0.00,0,49,`);
   assert.equal(donors.length, 3);
   assert.deepEqual(donors.map(d => d.rank), [3, 3, 49]);
   assert.equal(topSupporters(donors).length, 2);
   assert.equal(donors[2].name, 'ไทย 🐯, A');
-  assert.equal(donors[2].avatarUrl, '/images/supporters/a.webp');
+  assert.equal(donors[2].avatarUrl, 'https://drive.google.com/thumbnail?id=12jyw44v5-ni2zqa4zpf1hHd2vNhXdce3&sz=w400');
   assert.equal(donors.reduce((sum, d) => sum + d.total, 0), 51);
 });
 
@@ -59,12 +59,13 @@ test('Drive File IDs survive parser mapping and repeated renderer normalization'
   assert.deepEqual(donors.map(d => d.rank), [3, 3]);
 });
 
-test('legacy filenames remain supported without using donor names', () => {
+test('retired local filenames and paths use initials without requesting deleted files', () => {
   for (const name of ['Bby-sunn.webp', 'photo.jpg', 'photo.jpeg', 'ภาษาไทย 🐯 #1%.png']) {
-    const expected = `/images/supporters/${encodeURIComponent(name)}`;
-    assert.equal(normalizeAvatarUrl(name), expected);
-    assert.equal(normalizeAvatarUrl(expected), expected);
+    const retiredPath = `/images/supporters/${encodeURIComponent(name)}`;
+    assert.equal(normalizeAvatarUrl(name), undefined);
+    assert.equal(normalizeAvatarUrl(retiredPath), undefined);
   }
+  assert.equal(parseDonors(`${header}\nA,10,1,1,Bby-sunn.webp`)[0].avatarUrl, undefined);
 });
 
 test('Drive share links map through CSV into the same URL used by both pages', () => {
