@@ -1,0 +1,147 @@
+---
+interface Props {
+  preview?: boolean;
+}
+const { preview = false } = Astro.props;
+---
+
+<section class:list={['donor-ranking', { campaign: preview }]} data-donor-ranking data-preview={String(preview)} aria-label={preview ? 'Donor Ranking campaign' : 'Donor Ranking'}>
+  <div class="ranking-heading">
+    <div>
+      {preview && <span class="campaign-eyebrow">#SAONOIの7OURNEY</span>}
+      {preview ? <h2>Little Tiger Podium</h2> : <h1>Donor Ranking</h1>}
+      <p>{preview ? 'MISSION - ONE LAST SHOW' : 'ขอบคุณทุกแรงสนับสนุนสาวน้อย 🐯'}</p>
+    </div>
+    <button type="button" data-refresh disabled>รีเฟรช / Refresh</button>
+  </div>
+  <p data-status role="status" aria-live="polite">กำลังโหลดข้อมูลผู้สนับสนุน…</p>
+  <div data-results aria-busy="true"></div>
+  <noscript><p>เปิด JavaScript เพื่อดูอันดับผู้สนับสนุน</p></noscript>
+  {preview && <a class="all-supporters" href="/supporters">ดูผู้สนับสนุนทั้งหมด / View All Supporters →</a>}
+</section>
+
+<script>
+  import { topSupporters } from '../lib/donors';
+  import { initializeDonorRanking } from '../lib/donor-ranking-client';
+  import { missionProgress, renderCampaign } from '../lib/donor-campaign';
+
+  const money = new Intl.NumberFormat('th-TH', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+  for (const root of document.querySelectorAll<HTMLElement>('[data-donor-ranking]')) {
+    const results = root.querySelector<HTMLElement>('[data-results]')!;
+    const preview = root.dataset.preview === 'true';
+    initializeDonorRanking(root, (donors, csv) => {
+      const visible = preview ? topSupporters(donors) : donors;
+      const table = document.createElement('table');
+      const caption = table.createCaption();
+      caption.textContent = preview ? 'Top 3 Supporters (including tied ranks)' : 'All supporters';
+      const head = table.createTHead().insertRow();
+      for (const label of ['Rank', 'Donor', 'Total (฿)', 'Slips']) {
+        const cell = document.createElement('th');
+        cell.scope = 'col';
+        cell.textContent = label;
+        head.append(cell);
+      }
+      const body = table.createTBody();
+      for (const donor of visible) {
+        const row = body.insertRow();
+        for (const value of [`#${donor.rank}`, donor.name, money.format(donor.total), String(donor.slips)]) {
+          row.insertCell().textContent = value;
+        }
+      }
+      results.replaceChildren(...(donors.length ? [preview ? renderCampaign(donors, missionProgress(csv)) : table] : []));
+    });
+  }
+</script>
+
+<style>
+  .donor-ranking { margin: 28px 0; padding: 20px 14px; background: #fff; border: 1px solid #e4e4e1; border-radius: 18px; }
+  .ranking-heading { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px; }
+  h1, h2 { margin: 0; font-size: 21px; color: #222; }
+  p { margin: 8px 0; font-size: 12px; color: #777; }
+  button { min-height: 44px; padding: 8px 12px; border: 1px solid #dededb; border-radius: 10px; background: #fafaf9; color: #444; font: inherit; font-size: 12px; cursor: pointer; }
+  button:disabled { opacity: .6; cursor: wait; }
+  button:hover:not(:disabled) { background: #f0f0ee; }
+  button:focus-visible, a:focus-visible { outline: 2px solid #52705b; outline-offset: 3px; }
+  [data-results] { margin-top: 14px; }
+  [data-results] :global(table) { width: 100%; border-collapse: collapse; table-layout: fixed; font-size: 12px; }
+  [data-results] :global(caption) { text-align: left; margin-bottom: 8px; color: #777; }
+  [data-results] :global(th), [data-results] :global(td) { padding: 12px 4px; border-bottom: 1px solid #eee; text-align: right; vertical-align: top; }
+  [data-results] :global(th) { font-weight: 600; color: #777; }
+  [data-results] :global(th:first-child), [data-results] :global(td:first-child) { width: 15%; text-align: left; }
+  [data-results] :global(th:nth-child(2)), [data-results] :global(td:nth-child(2)) { width: 42%; text-align: left; overflow-wrap: anywhere; white-space: pre-wrap; }
+  [data-results] :global(th:nth-child(3)) { width: 28%; }
+  .all-supporters { display: inline-block; margin-top: 18px; padding: 8px 0; font-size: 12px; font-weight: 600; }
+  .all-supporters:hover { text-decoration: underline; }
+  .campaign { margin-top: 0; padding: 22px 14px; border-color: #ead5ef; background: radial-gradient(ellipse at top left, #ffe7f0, transparent 65%), linear-gradient(145deg, #fff9fd, #eee6ff); color: #513568; box-shadow: 0 8px 28px #70448b0a; }
+  .campaign { margin-top: 28px; }
+  .campaign h2 { color: #62417a; font-size: clamp(20px, 4vw, 28px); }
+  .campaign p { color: #735b82; }
+  .campaign-eyebrow { display: block; margin-bottom: 6px; font-size: 10px; font-weight: 700; letter-spacing: .15em; color: #9263a0; }
+  .campaign button { border-color: #d8bfdf; background: #ffffffb3; color: #68457c; }
+  .campaign .all-supporters { display: block; text-align: center; padding: 14px; border-radius: 14px; background: #75508e; color: #fff; }
+  .campaign :global(.mission-card) { padding: 20px 16px; border: 1px solid #fff; border-radius: 18px; background: #ffffffc9; }
+  .campaign :global(.campaign-label) { margin: 0; font-size: 13px; color: #78538c; }
+  .campaign :global(.mission-total) { margin: 8px 0 0; font-size: clamp(28px, 7vw, 40px); font-weight: 700; color: #68417d; letter-spacing: -.03em; }
+  .campaign :global(.mission-goal) { margin: 2px 0 16px; font-size: 11px; }
+  .campaign :global(progress) { display: block; width: 100%; height: 14px; border: 0; border-radius: 20px; overflow: hidden; background: #eee4f2; accent-color: #bb80bd; }
+  .campaign :global(progress::-webkit-progress-bar) { background: #eee4f2; border-radius: 20px; }
+  .campaign :global(progress::-webkit-progress-value) { background: linear-gradient(90deg, #efa7c2, #ad85cf); border-radius: 20px; }
+  .campaign :global(progress::-moz-progress-bar) { background: linear-gradient(90deg, #efa7c2, #ad85cf); border-radius: 20px; }
+  .campaign :global(.mission-details) { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px; margin-top: 10px; font-size: 12px; }
+  .campaign :global(.campaign-title) { margin: 26px 0 4px; text-align: center; font-size: 18px; }
+  .campaign :global(.campaign-note) { text-align: center; font-size: 11px; margin: 0 0 18px; }
+  .campaign :global(.podium) { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 6px; align-items: end; padding-top: 16px; }
+  .campaign :global(.podium-seat) { position: relative; min-width: 0; padding: 12px 5px 18px; border: 1px solid #fff; border-radius: 18px 18px 8px 8px; text-align: center; background: linear-gradient(#fff6fc, #e0d1f1); }
+  .campaign :global(.podium-rank-1) { padding-top: 34px; background: linear-gradient(#fff5e6, #f6d4e4); box-shadow: 0 0 18px #e8b3cf55; }
+  .campaign :global(.podium-rank-2) { padding-top: 22px; }
+  .campaign :global(.podium-crown) { display: block; font-size: 32px; line-height: 1; color: #9570b1; }
+  .campaign :global(.podium-rank-1 .podium-crown) { color: #bb822a; font-size: 40px; }
+  .campaign :global(.podium-rank) { margin: 6px 0 10px; font-size: 18px; }
+  .campaign :global(.podium-supporter + .podium-supporter) { margin-top: 10px; padding-top: 10px; border-top: 1px solid #ffffffaa; }
+  .campaign :global(.supporter-name) { overflow-wrap: anywhere; white-space: pre-wrap; font-size: 12px; font-weight: 600; margin: 0; color: #513568; }
+  .campaign :global(.supporter-amount) { white-space: nowrap; font-size: 11px; font-weight: 700; margin: 5px 0 0; color: #75508e; }
+  .campaign :global(.vip-seats) { display: grid; gap: 8px; padding: 0; margin: 0; list-style: none; }
+  .campaign :global(.vip-seat) { display: grid; grid-template-columns: 34px minmax(0, 1fr) auto; gap: 10px; align-items: center; padding: 12px; border: 1px solid #fff; border-radius: 12px; background: #ffffffb3; }
+  .campaign :global(.vip-rank) { font-size: 12px; font-weight: 700; color: #95639e; }
+  .campaign :global(.vip-seat .supporter-amount) { margin: 0; }
+  /* Ticket perforation and cream stock keep the campaign distinct from donation controls. */
+  .campaign :global(.mission-card) { position: relative; padding: 14px 16px; border: 1px solid #e7d6b7; background: linear-gradient(125deg, #fffdf5, #fff1f7); box-shadow: 0 5px 16px #8d65900a; }
+  .campaign :global(.mission-total) { margin-top: 4px; font-size: clamp(26px, 6vw, 34px); }
+  .campaign :global(.mission-goal) { margin-bottom: 10px; }
+  .campaign :global(.progress-footer) { margin: 8px 0 0; font-size: 10px; }
+  .campaign :global(.ticket-label) { display: none; }
+  .campaign :global(.mission-card)::before,
+  .campaign :global(.mission-card)::after { content: ''; position: absolute; top: 57%; width: 14px; height: 24px; border: 1px solid #e7d6b7; background: #f5eafa; border-radius: 50%; }
+  .campaign :global(.mission-card)::before { left: -8px; clip-path: inset(0 0 0 50%); }
+  .campaign :global(.mission-card)::after { right: -8px; clip-path: inset(0 50% 0 0); }
+  .campaign :global(.ticket-label) { display: block; margin-top: 8px; color: #92723b; font-size: 9px; letter-spacing: .12em; }
+  .campaign :global(.mission-details) { padding-top: 12px; border-top: 1px dashed #d6bddb; }
+  .campaign :global(.podium-seat) { border-color: #e6d5ed; border-bottom: 5px solid #c6acd8; }
+  .campaign :global(.podium-rank-1) { border-color: #e5cea2; border-bottom-color: #d6b271; }
+  .campaign :global(.podium-rank-3) { border-bottom-color: #dfa9c5; }
+  .campaign :global(.supporter-avatar) { position: relative; isolation: isolate; width: min(100%, 100px); aspect-ratio: 600 / 581; margin: 0 auto 10px; }
+  .campaign :global(.avatar-fallback),
+  .campaign :global(.avatar-photo) { position: absolute; left: 16%; top: 34%; width: 65%; height: 65%; border-radius: 50%; background: linear-gradient(135deg, #f9d9e7, #ded0ef); object-fit: cover; }
+  .campaign :global(.avatar-fallback) { display: grid; place-items: center; font-size: 22px; color: #735183; font-weight: 700; }
+  .campaign :global(.avatar-frame) { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; pointer-events: none; }
+  .campaign :global(.avatar-vip) { width: 40px; margin: 0; aspect-ratio: 500 / 443; }
+  .campaign :global(.avatar-vip .avatar-fallback),
+  .campaign :global(.avatar-vip .avatar-photo) { left: 16%; top: 27%; width: 66%; height: 73%; font-size: 14px; }
+  .campaign :global(.vip-seat) { grid-template-columns: 26px 40px minmax(0, 1fr); gap: 8px; }
+  .campaign :global(.vip-seat .supporter-amount) { grid-column: 3; margin-top: -4px; }
+  @media (min-width: 420px) {
+    .campaign :global(.vip-seat) { grid-template-columns: 30px 40px minmax(0, 1fr) auto; }
+    .campaign :global(.vip-seat .supporter-amount) { grid-column: auto; margin-top: 0; }
+  }
+  @media (min-width: 600px) {
+    .campaign :global(.podium) { gap: 12px; }
+    .campaign :global(.podium-seat) { padding-inline: 14px; }
+    .campaign :global(.supporter-name) { font-size: 14px; }
+    .campaign :global(.supporter-amount) { font-size: 13px; }
+  }
+  @media (min-width: 600px) {
+    .donor-ranking { padding: 24px; }
+    [data-results] :global(table) { font-size: 14px; }
+    [data-results] :global(th), [data-results] :global(td) { padding: 14px 8px; }
+  }
+</style>

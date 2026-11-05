@@ -1,0 +1,143 @@
+---
+import SupporterAvatar from './supporter-avatar.astro';
+import { MISSION_GOAL } from '../lib/donor-campaign';
+---
+
+<article class="expanded-supporters" data-expanded-ranking>
+  <header class="page-intro">
+    <span class="eyebrow">#SAONOIの7OURNEY</span>
+    <h1>Little Tiger <em>Podium</em></h1>
+    <p>MISSION - ONE LAST SHOW</p>
+    <nav aria-label="Ranking sections"><a href="#front-row">Front Row</a><a href="#vip-seats">VIP Seats</a><a href="#supporter-directory">The Audience</a></nav>
+  </header>
+  <div class="ranking-controls">
+    <p data-status role="status" aria-live="polite">กำลังโหลดข้อมูลผู้สนับสนุน…</p>
+    <button type="button" data-refresh disabled>รีเฟรช / Refresh</button>
+  </div>
+  <noscript><p>เปิด JavaScript เพื่อดูอันดับผู้สนับสนุน</p></noscript>
+  <div data-results aria-busy="true" hidden>
+    <section class="mission-ticket" aria-labelledby="mission-title">
+      <div class="ticket-main">
+        <h2 id="mission-title">TICKETS SOLD</h2>
+        <p class="mission-total" data-total></p>
+        <p class="muted">Goal: 77,777.00 Tickets</p>
+        <progress value="0" max={MISSION_GOAL} aria-label="TICKETS SOLD"></progress>
+        <div class="progress-details"><strong data-percent></strong><span data-remaining></span></div>
+        <p class="muted">1 THB = 1 Ticket</p>
+      </div>
+      <div class="ticket-stub"><span aria-hidden="true">✦</span><strong data-count></strong><span>SUPPORTERS</span><small>THANK YOU</small></div>
+    </section>
+    <section id="front-row" aria-labelledby="front-row-title">
+      <div class="section-heading"><span class="eyebrow">THE STARS OF OUR MISSION</span><h2 id="front-row-title">Front Row</h2><p>อันดับ 1–3 · ทุกคนที่อันดับเสมอกันมีที่นั่งเสมอ</p></div>
+      <div class="podium">
+        {[1, 2, 3].map((rank) => <section class={`podium-group place-${rank}`} aria-label={`Rank ${rank}`} hidden>
+          <div class="podium-people"></div>
+          <div class="podium-base"><span aria-hidden="true">♛</span><strong>#{rank}</strong><small>{rank === 1 ? 'GOLDEN HEART' : rank === 2 ? 'SHINING STAR' : 'SWEET SUPPORT'}</small></div>
+        </section>)}
+      </div>
+    </section>
+    <section id="vip-seats" aria-labelledby="vip-title">
+      <div class="section-heading"><span class="eyebrow">A SPECIAL PLACE FOR YOU</span><h2 id="vip-title">VIP Seats</h2><p>อันดับ 4–10 · รวมผู้สนับสนุนทุกคนที่มีอันดับร่วมกัน</p></div>
+      <div class="vip-grid"></div>
+      <p class="empty" data-vip-empty hidden>ยังไม่มีผู้สนับสนุนในอันดับ 4–10</p>
+    </section>
+    <section id="supporter-directory" aria-labelledby="directory-title">
+      <div class="section-heading"><span class="eyebrow">EVERY LITTLE LOVE MATTERS</span><h2 id="directory-title">The Audience</h2><p>ทุกชื่อคือแรงใจ · ผู้สนับสนุนอันดับ 11 เป็นต้นไป</p></div>
+      <div class="directory-grid"></div>
+      <p class="empty" data-directory-empty hidden>ยังไม่มีผู้สนับสนุนในส่วนนี้</p>
+    </section>
+    <p class="closing">Together, we make this journey beautiful. <span aria-hidden="true">♡</span></p>
+  </div>
+  <template data-profile-template>
+    <article class="supporter-profile">
+      <span class="profile-rank" data-rank></span>
+      <SupporterAvatar name="" />
+      <h3 data-name></h3><p class="amount" data-amount></p>
+    </article>
+  </template>
+</article>
+
+<script>
+  import { initializeDonorRanking } from '../lib/donor-ranking-client';
+  import { renderExpandedSupporters } from '../lib/expanded-supporters-client';
+
+  for (const root of document.querySelectorAll<HTMLElement>('[data-expanded-ranking]')) {
+    initializeDonorRanking(root, (donors, csv) => renderExpandedSupporters(root, donors, csv));
+  }
+</script>
+
+<style>
+  [hidden] { display: none !important; }
+  .ranking-controls { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 18px; }
+  [data-status] { font-size: 12px; color: #826b88; }
+  button { min-height: 44px; padding: 10px 16px; border: 1px solid #d8bfdf; border-radius: 12px; background: #fff7fc; color: #68457c; font: inherit; font-size: 12px; cursor: pointer; }
+  button:disabled { opacity: .6; cursor: wait; }
+  button:focus-visible { outline: 2px solid #8f65aa; outline-offset: 4px; }
+  .profile-rank { display: block; font-size: 12px; color: #7b568e; font-weight: 700; margin-bottom: 8px; }
+  .front-profile .profile-rank { margin-top: 0; }
+  .expanded-supporters { color: #594367; --gold: #a17c3f; }
+  .page-intro { padding: 38px 10px 28px; text-align: center; }
+  .eyebrow { font-size: 10px; font-weight: 700; letter-spacing: .15em; color: #987541; }
+  h1 { margin: 14px 0; font-size: clamp(32px, 7vw, 58px); line-height: 1.18; letter-spacing: -.035em; }
+  h1 em { font-style: normal; color: #a777a3; }
+  p { line-height: 1.8; }
+  .page-intro p, .section-heading p { color: #85718e; font-size: 13px; }
+  nav { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; margin-top: 22px; }
+  nav a { padding: 12px 16px; border: 1px solid #e7d9eb; border-radius: 30px; background: #fff; font-size: 12px; }
+  a:hover { background: #f4eafa; }
+  a:focus-visible { outline: 2px solid #8f65aa; outline-offset: 4px; }
+  .mission-ticket { position: relative; display: grid; overflow: hidden; border: 1px solid #e6d5b6; border-radius: 22px; background: linear-gradient(120deg, #fffbef, #fff1f6 70%, #f0e7fb); box-shadow: 0 12px 35px #78547e0a; }
+  .ticket-main { padding: 24px 20px; min-width: 0; }
+  .ticket-main h2 { margin: 10px 0 0; font-size: 20px; }
+  .mission-total { margin: 10px 0 0; font-size: clamp(32px, 8vw, 52px); font-weight: 700; letter-spacing: -.04em; line-height: 1.3; }
+  .muted { font-size: 12px; color: #826b88; margin-bottom: 20px; }
+  progress { display: block; appearance: none; width: 100%; height: 14px; overflow: hidden; border: 0; border-radius: 20px; background: #e9dced; accent-color: #b783bf; }
+  progress::-webkit-progress-bar { background: #e9dced; }
+  progress::-webkit-progress-value { background: linear-gradient(90deg, #e5abc8, #b38acf); border-radius: 20px; }
+  progress::-moz-progress-bar { background: linear-gradient(90deg, #e5abc8, #b38acf); border-radius: 20px; }
+  .progress-details { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px; margin-top: 12px; font-size: 12px; }
+  .ticket-stub { position: relative; display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 12px; padding: 18px; border-top: 2px dashed #dcc8d8; font-size: 10px; letter-spacing: .12em; color: #936c49; }
+  .ticket-stub::before, .ticket-stub::after { content: ''; position: absolute; top: -11px; width: 20px; height: 20px; background: #fafaf9; border: 1px solid #e6d5b6; border-radius: 50%; }
+  .ticket-stub::before { left: -11px; }.ticket-stub::after { right: -11px; }
+  .ticket-stub strong { font-size: 28px; }
+  .section-heading { text-align: center; margin: 46px 0 24px; }
+  .section-heading h2 { margin: 8px 0; font-size: clamp(24px, 4vw, 32px); }
+  .section-heading p { margin: 0; }
+  section[id] { scroll-margin-top: 24px; }
+  .podium { display: grid; gap: 18px; }
+  .podium-group { min-width: 0; border: 1px solid #e1d1eb; border-radius: 22px; overflow: hidden; background: linear-gradient(#fffafc, #f2eaf9); }
+  .place-1 { border-color: #e7d2a7; background: linear-gradient(#fffaf0, #f9e9ef); }
+  .place-3 { background: linear-gradient(#fff9fd, #f7e5ee); }
+  .podium-people { display: grid; gap: 20px; padding: 24px 16px; }
+  .front-profile { text-align: center; min-width: 0; --avatar-size: 180px; }
+  h3 { overflow-wrap: anywhere; white-space: pre-wrap; font-size: 14px; margin: 16px 0 4px; line-height: 1.6; }
+  .amount { font-size: 14px; font-weight: 700; color: #936084; margin: 0; }
+  .podium-base { display: flex; flex-direction: column; align-items: center; gap: 3px; padding: 16px; background: #e7dbf1; }
+  .podium-base > span { font-size: 24px; color: #9972b1; }
+  .podium-base strong { font-size: 32px; line-height: 1.2; }
+  .podium-base small { font-size: 9px; letter-spacing: .14em; }
+  .place-1 .podium-base { background: #f1dfb9; }.place-1 .podium-base > span { color: #99712c; }
+  .place-3 .podium-base { background: #efd0e1; }
+  .vip-grid, .directory-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+  .vip-card, .directory-card { position: relative; min-width: 0; text-align: center; padding: 24px 10px 18px; border: 1px solid #e6d8ed; border-radius: 18px; background: #fff; }
+  .vip-card { background: linear-gradient(145deg, #fffaf2, #fcf0fa); --avatar-size: 112px; }
+  .rank-badge { position: absolute; top: 10px; left: 10px; border-radius: 20px; padding: 3px 8px; background: #ece1f3; color: #7b568e; font-size: 11px; font-weight: 700; }
+  .seat-label { display: block; margin-top: 14px; font-size: 9px; letter-spacing: .1em; color: #9a7948; }
+  .directory-card { --avatar-size: 80px; padding-top: 30px; }
+  .directory-rank { position: absolute; top: 10px; left: 12px; font-size: 11px; color: #927b9c; }
+  .directory-card h3 { font-size: 12px; }.directory-card .amount { font-size: 12px; }
+  .closing { text-align: center; font-size: 12px; color: #9575a0; margin: 40px 0; }
+  .closing span { display: block; font-size: 32px; color: #bd91ad; }
+  .empty { text-align: center; font-size: 13px; color: #85718e; }
+  @media (min-width: 600px) {
+    .mission-ticket { grid-template-columns: minmax(0, 1fr) 150px; }.ticket-main { padding: 32px; }
+    .ticket-stub { flex-direction: column; border-top: 0; border-left: 2px dashed #dcc8d8; }
+    .ticket-stub::before { top: -11px; left: -11px; }.ticket-stub::after { top: auto; bottom: -11px; left: -11px; }
+    .podium { grid-template-columns: repeat(3, minmax(0, 1fr)); align-items: end; gap: 12px; }
+    .place-2 { grid-column: 1; grid-row: 1; }.place-1 { grid-column: 2; grid-row: 1; }.place-3 { grid-column: 3; grid-row: 1; }
+    .place-1 .podium-base { padding-bottom: 52px; }.place-2 .podium-base { padding-bottom: 32px; }
+    .vip-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }.directory-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .vip-grid, .directory-grid { gap: 14px; }
+  }
+  @media (min-width: 960px) { .directory-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }.podium { gap: 20px; }.front-profile { --avatar-size: 210px; } }
+</style>

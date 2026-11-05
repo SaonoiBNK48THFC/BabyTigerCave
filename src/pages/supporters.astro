@@ -1,0 +1,15 @@
+---
+import MainLayout from '../layouts/mainlayout.astro';
+import ExpandedSupporters from '../components/expanded-supporters.astro';
+---
+
+<MainLayout title="Our Supporters | Saonoi BNK48" description="ขอบคุณผู้สนับสนุนสาวน้อย BNK48 — อันดับผู้สนับสนุนทั้งหมดและความคืบหน้าภารกิจ">
+  <a class="back-link" href="/">← กลับหน้าหลัก / Home</a>
+  <ExpandedSupporters />
+</MainLayout>
+
+<style>
+  .back-link { display: inline-block; padding: 12px 0; font-size: 13px; color: #777; }
+  .back-link:hover { text-decoration: underline; }
+  :global(.page:has(> .expanded-supporters)) { width: min(100% - 28px, 1080px); }
+</style>

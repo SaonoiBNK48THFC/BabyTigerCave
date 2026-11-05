@@ -1,0 +1,36 @@
+---
+import { normalizeAvatarUrl } from '../lib/avatar-url';
+
+interface Props {
+  name: string;
+  src?: string;
+  crowned?: boolean;
+}
+const { name, src, crowned = false } = Astro.props;
+const avatarUrl = normalizeAvatarUrl(src);
+const initial = [...new Intl.Segmenter('th', { granularity: 'grapheme' }).segment(name.trim())][0]?.segment || '♥';
+---
+
+<div class:list={['profile-avatar', { crowned }]} aria-hidden="true">
+  <span class="initial">{initial}</span>
+  {avatarUrl && <img class="photo" src={avatarUrl} alt="" width="160" height="160" loading="lazy" data-profile-photo />}
+  <img class="frame" src={`/images/frame/${crowned ? 'frame-crown' : 'frame-no-crown'}.png`} alt="" width="600" height="581" />
+</div>
+
+<script>
+  document.querySelectorAll<HTMLImageElement>('[data-profile-photo]').forEach((photo) => {
+    const fallback = () => { photo.hidden = true; };
+    photo.addEventListener('error', fallback, { once: true });
+    if (photo.complete && photo.naturalWidth === 0) fallback();
+  });
+</script>
+
+<style>
+  .profile-avatar { position: relative; width: var(--avatar-size, 88px); max-width: 100%; aspect-ratio: 500 / 443; margin: 0 auto; isolation: isolate; }
+  .crowned { aspect-ratio: 600 / 581; }
+  .initial, .profile-avatar :global(.photo) { position: absolute; left: 16%; top: 27%; width: 66%; height: 73%; border-radius: 50%; background: linear-gradient(135deg, #f7dbe9, #e2d8f1); }
+  .initial { display: grid; place-items: center; font-size: clamp(20px, 4vw, 34px); color: #795589; font-weight: 700; }
+  .profile-avatar :global(.photo) { object-fit: cover; }
+  .crowned .initial, .crowned :global(.photo) { top: 34%; width: 65%; height: 65%; }
+  .frame { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; }
+</style>
