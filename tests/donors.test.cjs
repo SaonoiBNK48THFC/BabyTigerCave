@@ -11,7 +11,14 @@ require.extensions['.ts'] = (module, filename) => {
 };
 const { parseDonors, topSupporters } = require('../src/lib/donors.ts');
 const { normalizeAvatarUrl } = require('../src/lib/avatar-url.ts');
+const { avatarFrameForRank } = require('../src/lib/avatar-frame.ts');
 const header = 'Donor,Total (฿),Slips,Rank,Avatar';
+
+test('avatar frames follow actual rank boundaries, including tied ranks', () => {
+  for (const rank of [1, 2, 3, 3]) assert.equal(avatarFrameForRank(rank), '/images/frame/frame-crown.png');
+  for (const rank of [4, 7, 10, 10]) assert.equal(avatarFrameForRank(rank), '/images/frame/frame-no-crown.png');
+  for (const rank of [11, 11, 57]) assert.equal(avatarFrameForRank(rank), undefined);
+});
 
 test('skips truly empty rows and zero-activity formula placeholders only', () => {
   const donors = parseDonors(`${header}\n,,,,\n , , , , \n,0.00,0,49,\nA,100.00,1,1,\n,0,0,49,`);

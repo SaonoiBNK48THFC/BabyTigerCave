@@ -1,5 +1,6 @@
 import { parseCSV, topSupporters, type Donor } from './donors';
 import { normalizeAvatarUrl } from './avatar-url';
+import { avatarFrameForRank } from './avatar-frame';
 
 export const MISSION_GOAL = 77777;
 
@@ -30,8 +31,9 @@ function element(tag: string, className: string, text?: string) {
   return node;
 }
 
-function avatar(donor: Donor, crowned: boolean) {
-  const wrap = element('div', `supporter-avatar ${crowned ? 'avatar-crowned' : 'avatar-vip'}`);
+function avatar(donor: Donor) {
+  const frameSrc = avatarFrameForRank(donor.rank);
+  const wrap = element('div', `supporter-avatar ${donor.rank <= 3 ? 'avatar-crowned' : 'avatar-vip'}`);
   wrap.setAttribute('aria-hidden', 'true');
   const initial = new Intl.Segmenter('th', { granularity: 'grapheme' }).segment(donor.name.trim())[Symbol.iterator]().next().value?.segment || '♥';
   const fallback = element('span', 'avatar-fallback', initial);
@@ -48,12 +50,14 @@ function avatar(donor: Donor, crowned: boolean) {
     photo.src = src;
     wrap.append(photo);
   }
-  const frame = document.createElement('img');
-  frame.className = 'avatar-frame';
-  frame.alt = '';
-  frame.src = `/images/frame/${crowned ? 'frame-crown' : 'frame-no-crown'}.png`;
-  frame.addEventListener('error', () => frame.remove(), { once: true });
-  wrap.append(frame);
+  if (frameSrc) {
+    const frame = document.createElement('img');
+    frame.className = 'avatar-frame';
+    frame.alt = '';
+    frame.src = frameSrc;
+    frame.addEventListener('error', () => frame.remove(), { once: true });
+    wrap.append(frame);
+  }
   return wrap;
 }
 
@@ -88,7 +92,7 @@ export function renderCampaign(donors: Donor[], progress: ReturnType<typeof miss
     seat.append(crown, element('h4', 'podium-rank', `#${rank}`));
     for (const donor of tied) {
       const supporter = element('div', 'podium-supporter');
-      supporter.append(avatar(donor, true), element('p', 'supporter-name', donor.name), element('p', 'supporter-amount', baht(donor.total)));
+      supporter.append(avatar(donor), element('p', 'supporter-name', donor.name), element('p', 'supporter-amount', baht(donor.total)));
       seat.append(supporter);
     }
     podium.append(seat);

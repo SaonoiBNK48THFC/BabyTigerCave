@@ -1,5 +1,6 @@
 import type { Donor } from './donors';
 import { normalizeAvatarUrl } from './avatar-url';
+import { avatarFrameForRank } from './avatar-frame';
 import { MISSION_GOAL, missionProgress, formatTickets } from './donor-campaign';
 
 const money = (amount: number) => `฿${amount.toLocaleString('th-TH', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
@@ -8,7 +9,7 @@ export function renderExpandedSupporters(root: HTMLElement, donors: Donor[], csv
   // Validate progress before changing the UI so a failed refresh retains prior data.
   const progress = missionProgress(csv);
   const template = root.querySelector<HTMLTemplateElement>('[data-profile-template]')!;
-  const createCard = (donor: Donor, className: string, crowned = false) => {
+  const createCard = (donor: Donor, className: string) => {
     const card = template.content.firstElementChild!.cloneNode(true) as HTMLElement;
     card.className = className;
     card.dataset.supporterRank = String(donor.rank);
@@ -16,11 +17,14 @@ export function renderExpandedSupporters(root: HTMLElement, donors: Donor[], csv
     card.querySelector<HTMLElement>('[data-amount]')!.textContent = money(donor.total);
     card.querySelector<HTMLElement>('[data-rank]')!.textContent = `#${donor.rank}`;
     const wrap = card.querySelector<HTMLElement>('.profile-avatar')!;
-    wrap.classList.toggle('crowned', crowned);
+    const frameSrc = avatarFrameForRank(donor.rank);
+    wrap.classList.toggle('crowned', donor.rank >= 1 && donor.rank <= 3);
+    wrap.classList.toggle('plain', !frameSrc);
     const initial = new Intl.Segmenter('th', { granularity: 'grapheme' }).segment(donor.name.trim())[Symbol.iterator]().next().value?.segment || '♥';
     card.querySelector<HTMLElement>('.initial')!.textContent = initial;
     const frame = card.querySelector<HTMLImageElement>('.frame')!;
-    frame.src = `/images/frame/${crowned ? 'frame-crown' : 'frame-no-crown'}.png`;
+    if (frameSrc) frame.src = frameSrc;
+    else frame.remove();
     const src = normalizeAvatarUrl(donor.avatarUrl);
     if (src) {
       const photo = document.createElement('img');
@@ -31,7 +35,8 @@ export function renderExpandedSupporters(root: HTMLElement, donors: Donor[], csv
       photo.loading = 'lazy';
       photo.addEventListener('error', () => photo.remove(), { once: true });
       photo.src = src;
-      wrap.insertBefore(photo, frame);
+      if (frameSrc) wrap.insertBefore(photo, frame);
+      else wrap.append(photo);
     }
     return card;
   };
@@ -40,7 +45,7 @@ export function renderExpandedSupporters(root: HTMLElement, donors: Donor[], csv
     const group = root.querySelector<HTMLElement>(`.place-${rank}`)!;
     const tied = ordered.filter((donor) => donor.rank === rank);
     group.hidden = tied.length === 0;
-    group.querySelector('.podium-people')!.replaceChildren(...tied.map((donor) => createCard(donor, 'front-profile', true)));
+    group.querySelector('.podium-people')!.replaceChildren(...tied.map((donor) => createCard(donor, 'front-profile')));
   }
   const vip = ordered.filter((donor) => donor.rank >= 4 && donor.rank <= 10);
   const directory = ordered.filter((donor) => donor.rank >= 11);

@@ -1,20 +1,23 @@
 ---
 import { normalizeAvatarUrl } from '../lib/avatar-url';
+import { avatarFrameForRank } from '../lib/avatar-frame';
 
 interface Props {
   name: string;
   src?: string;
-  crowned?: boolean;
+  rank?: number;
 }
-const { name, src, crowned = false } = Astro.props;
+const { name, src, rank = 4 } = Astro.props;
+const frameSrc = avatarFrameForRank(rank);
+const crowned = rank >= 1 && rank <= 3;
 const avatarUrl = normalizeAvatarUrl(src);
 const initial = [...new Intl.Segmenter('th', { granularity: 'grapheme' }).segment(name.trim())][0]?.segment || '♥';
 ---
 
-<div class:list={['profile-avatar', { crowned }]} aria-hidden="true">
+<div class:list={['profile-avatar', { crowned, plain: !frameSrc }]} aria-hidden="true">
   <span class="initial">{initial}</span>
   {avatarUrl && <img class="photo" src={avatarUrl} alt="" width="160" height="160" loading="lazy" data-profile-photo />}
-  <img class="frame" src={`/images/frame/${crowned ? 'frame-crown' : 'frame-no-crown'}.png`} alt="" width="600" height="581" />
+  {frameSrc && <img class="frame" src={frameSrc} alt="" width="600" height="581" />}
 </div>
 
 <script>
@@ -32,5 +35,7 @@ const initial = [...new Intl.Segmenter('th', { granularity: 'grapheme' }).segmen
   .initial { display: grid; place-items: center; font-size: clamp(20px, 4vw, 34px); color: #795589; font-weight: 700; }
   .profile-avatar :global(.photo) { object-fit: cover; }
   .crowned .initial, .crowned :global(.photo) { top: 34%; width: 65%; height: 65%; }
+  /* Fill a circle while preserving the existing avatar box and card layout. */
+  .plain .initial, .plain :global(.photo) { left: 5.7%; top: 0; width: 88.6%; height: 100%; }
   .frame { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; }
 </style>
